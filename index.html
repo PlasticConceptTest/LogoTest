@@ -4,10 +4,10 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-  <!-- Versión compatible con MindAR 1.2.5 -->
+  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
-  <!-- MindAR Image Tracking -->
+  <!-- MindAR -->
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
   <style>
@@ -35,11 +35,19 @@
       warmupTolerance: 10;
       missTolerance: 15;
     "
+    
     color-space="sRGB"
-    renderer="colorManagement: true, physicallyCorrectLights"
+
+    renderer="
+      colorManagement: true;
+      physicallyCorrectLights: true;
+      exposure: 1;
+    "
+
     vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false">
 
+    <!-- MODELO 3D -->
     <a-assets>
       <a-asset-item
         id="logo3d"
@@ -47,28 +55,42 @@
       </a-asset-item>
     </a-assets>
 
-    <!-- Cámara -->
+
+    <!-- CÁMARA -->
     <a-camera
       position="0 0 0"
       look-controls="enabled: false">
     </a-camera>
 
-    <!-- Imagen reconocida -->
+
+    <!-- MARCADOR -->
     <a-entity mindar-image-target="targetIndex: 0">
 
-      <!-- Luz para el logo -->
+      <!-- ILUMINACIÓN MÁS NATURAL -->
+
+      <!-- Luz ambiental suave -->
       <a-light
         type="ambient"
-        intensity="2">
+        intensity="0.6">
       </a-light>
 
+      <!-- Luz principal -->
       <a-light
         type="directional"
-        intensity="2"
-        position="1 2 2">
+        intensity="1.2"
+        position="1 2 2"
+        cast-shadow="true">
       </a-light>
 
-      <!-- LOGO COMPLETAMENTE ESTÁTICO -->
+      <!-- Luz de relleno suave -->
+      <a-light
+        type="directional"
+        intensity="0.3"
+        position="-2 1 1">
+      </a-light>
+
+
+      <!-- LOGO 3D FIJO -->
       <a-gltf-model
         src="#logo3d"
         position="0 0 0.1"
